@@ -1,35 +1,53 @@
 <template>
 	<div class="parent">
 		<h2>Parent.vue</h2>
-		<h3>count is {{ count }}</h3>
+		<p>count: {{ count }}</p>
 
-		<button type="button" @click="count += 1">카운트 증가</button>
+		<div class="parent__button">
+			<button type="button" @click="increaseCountOne()">ChildOne 카운트 증가</button>
+		</div>
 
-		<Child :id="count" name="child1" />
-		<Child :id="0" name="child2" />
+		<div class="parent__button">
+			<button type="button" @click="increaseCountTwo()">ChildTwo 카운트 증가</button>
+		</div>
+
+		<ChildOne :count="countOne" />
+		<ChildTwo :count="countTwo" />
 	</div>
 </template>
 
 <script setup lang="ts">
 	import { ref , onUpdated, onMounted, onUnmounted} from 'vue';
-	import Child from './Child.vue';
+	import ChildOne from './ChildOne.vue';
+	import ChildTwo from './ChildTwo.vue';
 
-	const props = defineProps<{
+	defineProps<{
 		count: number;
 	}>();
 
-	const count = ref(0);
+	const countOne = ref(0);
+	const countTwo = ref(0);
+
+	const increaseCountOne = () => {
+		console.log('💡 [Parent] increase ChildOne count');
+		countOne.value += 1;
+	};
+
+	const increaseCountTwo = () => {
+		console.log('💡 [Parent] increase ChildTwo count');
+		countTwo.value += 1;
+	};
 
 	onMounted(() => {
-		console.log('💡 [parent] mounted');
+		console.log('💡 [Parent] mounted');
 	});
 
 	onUpdated(() => {
-		console.log('💡 [parent] updated', props.count);
+		console.log('💡 [Parent] DOM updated');
 	});
 
 	onUnmounted(() => {
-		console.log('💡 [parent] unmounted');
+		console.log('💡 [Parent] unmounted');
 	});
 </script>
 
@@ -38,5 +56,9 @@
 		margin-top: 10px;
 		padding: 10px;
 		border: 1px solid #ddd;
+	}
+	
+	.parent__button + .parent__button {
+		margin-top: 10px;
 	}
 </style>

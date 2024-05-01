@@ -1,28 +1,27 @@
 <template>
 	<div class="child">
-		<h3>{{ name }}</h3>
-	 	<p>count is {{ id }}</p>
+		<h3>ChildTwo</h3>
+		<p>count: {{ count }}</p>
 	 </div>
 </template>
 
 <script setup lang="ts">
 	import { onUpdated, onUnmounted, onMounted } from 'vue';
 
-	const props = defineProps<{
-		id: number;
-		name: string;
+	defineProps<{
+		count: number;
 	}>();
 
 	onMounted(() => {
-		console.log(`💡 [child] ${props.name} mounted`, props.id);
+		console.log(`💡 [ChildTwo] mounted`);
 	});
 
 	onUpdated(() => {
-		console.log(`💡 [child] ${props.name} updated`, props.id);
+		console.log(`💡 [ChildTwo] DOM updated`);
 	});
 
 	onUnmounted(() => {
-		console.log(`💡 [child] ${props.name} unmounted`, props.id);
+		console.log(`💡 [ChildTwo] unmounted`);
 	});
 </script>
 
