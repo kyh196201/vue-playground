@@ -4,38 +4,26 @@
 		<p>count: {{ count }}</p>
 
 		<div class="parent__button">
-			<button type="button" @click="increaseCountOne()">ChildOne 카운트 증가</button>
+			<button type="button" @click="childCount += 1">Child 카운트 증가</button>
 		</div>
 
-		<div class="parent__button">
-			<button type="button" @click="increaseCountTwo()">ChildTwo 카운트 증가</button>
-		</div>
-
-		<ChildOne :count="countOne" />
-		<ChildTwo :count="countTwo" />
+		<Child :count="childCount" />
 	</div>
 </template>
 
 <script setup lang="ts">
-	import { ref , onUpdated, onMounted, onUnmounted} from 'vue';
-	import ChildOne from './ChildOne.vue';
-	import ChildTwo from './ChildTwo.vue';
+	import { ref , onUpdated, onMounted, onUnmounted, reactive} from 'vue';
+	import Child from './Child.vue';
 
 	defineProps<{
 		count: number;
 	}>();
 
-	const countOne = ref(0);
-	const countTwo = ref(0);
+	const childCount = ref(0);
 
-	const increaseCountOne = () => {
-		console.log('💡 [Parent] increase ChildOne count');
-		countOne.value += 1;
-	};
-
-	const increaseCountTwo = () => {
-		console.log('💡 [Parent] increase ChildTwo count');
-		countTwo.value += 1;
+	const increaseCount = () => {
+		console.log('💡 [Parent] increase child count');
+		childCount.value += 1;
 	};
 
 	onMounted(() => {
